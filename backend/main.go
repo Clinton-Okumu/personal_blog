@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"personal_blog/backend/internal/app"
+	"personal_blog/backend/internal/routes"
 	"time"
 )
 
@@ -12,7 +14,6 @@ func main() {
 	flag.IntVar(&port, "port", 8080, "Go blog backend server port")
 	flag.Parse()
 
-	// initialize the Application struct
 	application, err := app.NewApplication()
 	if err != nil {
 		panic(err)
