@@ -110,7 +110,6 @@ This document is a living agreement. We may revise as we learn, but always with 
 
 ---
 
-_Last updated: 2025-08-04_
 
 ---
 
