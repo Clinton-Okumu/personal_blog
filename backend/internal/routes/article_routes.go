@@ -8,9 +8,18 @@ import (
 
 func ArticleRoutes(app *app.Application) chi.Router {
 	r := chi.NewRouter()
-	r.Post("/", app.ArticleHandler.CreateArticle)
+
+	// Public: only GET
 	r.Get("/{id}", app.ArticleHandler.GetArticleByID)
-	r.Put("/{id}", app.ArticleHandler.UpdateArticle)
-	r.Delete("/{id}", app.ArticleHandler.DeleteArticle)
+
+	// Protected: POST, PUT, DELETE
+	r.Group(func(protected chi.Router) {
+		protected.Use(app.Middleware.Authenticate)
+
+		protected.Post("/", app.ArticleHandler.CreateArticle)
+		protected.Put("/{id}", app.ArticleHandler.UpdateArticle)
+		protected.Delete("/{id}", app.ArticleHandler.DeleteArticle)
+	})
+
 	return r
 }

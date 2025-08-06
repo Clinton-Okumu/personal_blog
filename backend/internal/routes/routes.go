@@ -14,7 +14,7 @@ func SetUpRoutes(app *app.Application) *chi.Mux {
 
 	// Mount feature-specific routes
 	r.Mount("/articles", ArticleRoutes(app))
-	// r.Mount("/admin", AdminRoutes(app))
+	r.Mount("/admin", AdminRoutes(app))
 
 	return r
 }

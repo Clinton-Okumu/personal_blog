@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"personal_blog/backend/internal/api"
+	"personal_blog/backend/internal/middleware"
 	"personal_blog/backend/internal/store"
 
 	"github.com/joho/godotenv"
@@ -16,6 +17,9 @@ type Application struct {
 	DB             *gorm.DB
 	Logger         *log.Logger
 	ArticleHandler *api.ArticleHandler
+	AdminHandler   *api.AdminHandler
+	TokenHandler   *api.TokenHandler
+	Middleware     middleware.AdminMiddleware
 }
 
 func NewApplication() (*Application, error) {
@@ -40,14 +44,22 @@ func NewApplication() (*Application, error) {
 
 	// stores
 	articleStore := store.NewArticleStore(db)
+	adminStore := store.NewAdminStore(db)
+	tokenStore := store.NewTokenStore(db)
 
 	// handlers
 	articleHandler := api.NewArticleHandler(articleStore, logger)
+	adminHandler := api.NewAdminHandler(adminStore, logger)
+	tokenHandler := api.NewTokenHandler(tokenStore, adminStore, logger)
+	middlwareHandler := middleware.AdminMiddleware{AdminStore: adminStore}
 
 	app := &Application{
 		DB:             db,
 		Logger:         logger,
 		ArticleHandler: articleHandler,
+		AdminHandler:   adminHandler,
+		TokenHandler:   tokenHandler,
+		Middleware:     middlwareHandler,
 	}
 	return app, nil
 }
