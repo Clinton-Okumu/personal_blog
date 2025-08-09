@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import 'tailwindcss';
 
 @theme {
   --font-sans:
-    "Mona Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    'Mona Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Light mode colors */
   --color-bg: #ffffff;
@@ -48,10 +48,17 @@ body {
   @apply bg-white font-sans;
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
-  @apply min-h-screen ;
+  @apply flex-grow;
 }
 
 h1 {
@@ -64,6 +71,10 @@ h2 {
 
 label {
   @apply text-dark-200;
+}
+
+footer {
+  margin-top: auto; /* Tailwind: mt-auto */
 }
 
 input,
